@@ -23,7 +23,7 @@ pipeline {
                         script {
                             try {
                                 def container_ip = sh(returnStdout: true, script: "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${test_id}").trim()
-                                sh "curl ${container_ip}:9090"
+                                sh "curl ${container_ip}:8080"
                             }
                             catch (Exception e) {
                                 throw e
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 sh "docker stop rallyjenkinsdemo_app_prod || true"
                 sh "docker rm rallyjenkinsdemo_app_prod || true"
-                sh "docker run -d --network=rallyjenkinsdemo_default --name=rallyjenkinsdemo_app_prod -p 30080:80 ${TARGET_DOCKER_IMAGE}"
+                sh "docker run -d --network=rallyjenkinsdemo_default --name=rallyjenkinsdemo_app_prod -p 30080:8080 ${TARGET_DOCKER_IMAGE}"
             }
         }
     }

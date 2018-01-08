@@ -1,8 +1,6 @@
 FROM jetty
 
-EXPOSE 9090
+EXPOSE 8080
 
 RUN mkdir -p /var/lib/jetty/webapps/
-COPY gameoflife-web /var/lib/jetty/webapps/
-
-ENTRYPOINT cd /var/lib/jetty/webapps/gameoflife-web && mvn jetty:run
+COPY /var/jenkins_home/workspace/SampleApp/gameoflife-web/target/gameoflife/gameoflife.war /var/lib/jetty/webapps/ROOT.war
