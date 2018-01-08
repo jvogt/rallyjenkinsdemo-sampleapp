@@ -7,16 +7,14 @@ pipeline {
     }
     stages {
         stage('Build') {
-            echo "Building ${env.VERSION}.."
             steps {
                 sh 'mvn clean install'
                 sh "docker build . -t ${env.TARGET_DOCKER_IMAGE}"
             }
         }
         stage('Test') {
-            echo 'Testing..'
-            parallel(
-                Acceptance: {
+            parallel {
+                stage('Acceptance') {
                     steps {
                         script {
                             def test_id = sh(returnStdout: true, script: "docker run --network=rallyjenkinsdemo_default -d ${TARGET_DOCKER_IMAGE}").trim()
@@ -35,14 +33,14 @@ pipeline {
                             }
                         }
                     }
-                },
-                SonarScan: {
+                }
+                stage('SonarScan') {
                     steps {
                         sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=48428c97f3d54d35c974dea22d2cc285bc11f8a6'    
-                    }
-                    //sh 'cd gameoflife-acceptance-tests && mvn clean verify'
+                        //sh 'cd gameoflife-acceptance-tests && mvn clean verify'
+                    }                
                 }
-            )
+            }
         }
         stage('Deploy') {
             steps {
