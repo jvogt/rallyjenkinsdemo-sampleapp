@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>serenity-core</artifactId>
             <version>${thucydides.version}</version>
             <scope>test</scope>
         </dependency>
