@@ -30,7 +30,7 @@ pipeline {
                                 def cmd = "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${test_id}"
                                 def container_ip = sh(returnStdout: true, script: cmd).trim()
                                 echo "Waiting for Jetty to stand up"
-                                sleep 10
+                                sleep 20
                                 echo "Performing simple curl test"
                                 sh "curl -LsSf ${container_ip}:8080"
                                 echo "Performing maven verify"
@@ -41,7 +41,7 @@ pipeline {
                             }
                             finally {
                                 echo "Destroying acceptance container"
-                                sh "docker kill ${test_id}"
+                                sh "docker kill ${test_id} || true"
                             }
                         }
                     }
