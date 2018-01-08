@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        pom = readMavenPom file: 'pom.xml'
-        VERSION = pom.version.text()
+        project = new XmlSlurper().parseText(readFile('pom.xml'))
+        VERSION = project.version.text()
         TARGET_DOCKER_IMAGE = "rally-jenkins-demo/app:${env.VERSION}"
     }
     stages {
