@@ -18,8 +18,8 @@ pipeline {
                     steps {
                         script {
                             def test_id = sh(returnStdout: true, script: "docker run --network=rallyjenkinsdemo_default -d ${TARGET_DOCKER_IMAGE}").trim()
-                            sleep 5
                         }
+                        sleep 10
                         script {
                             try {
                                 def container_ip = sh(returnStdout: true, script: "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${test_id}").trim()
