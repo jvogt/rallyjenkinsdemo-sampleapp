@@ -12,7 +12,7 @@
         <jetty.port>9090</jetty.port>
         <jetty.stop.port>9999</jetty.stop.port>
         <webdriver.base.url>http://localhost:${jetty.port}</webdriver.base.url>
-        <webdriver.driver>firefox</webdriver.driver>
+        <webdriver.driver>chrome</webdriver.driver>
         <thucydides.version>1.8.4</thucydides.version>
     </properties>
     <dependencies>
@@ -122,28 +122,28 @@
             <id>development</id>
             <properties>
                 <webdriver.base.url>http://gameoflife:${jetty.port}</webdriver.base.url>
-                <webdriver.driver>firefox</webdriver.driver>
+                <webdriver.driver>chrome</webdriver.driver>
             </properties>
         </profile>
         <profile>
             <id>integration</id>
             <properties>
                 <webdriver.base.url>http://gameoflife:${jetty.port}</webdriver.base.url>
-                <webdriver.driver>firefox</webdriver.driver>
+                <webdriver.driver>chrome</webdriver.driver>
             </properties>
         </profile>
         <profile>
             <id>staging</id>
             <properties>
                 <webdriver.base.url>http://gameoflife:${jetty.port}</webdriver.base.url>
-                <webdriver.driver>firefox</webdriver.driver>
+                <webdriver.driver>chrome</webdriver.driver>
             </properties>
         </profile>
         <profile>
             <id>production</id>
             <properties>
                 <webdriver.base.url>http://gameoflife:${jetty.port}</webdriver.base.url>
-                <webdriver.driver>firefox</webdriver.driver>
+                <webdriver.driver>chrome</webdriver.driver>
             </properties>
         </profile>
     </profiles>
