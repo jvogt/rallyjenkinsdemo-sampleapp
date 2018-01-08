@@ -34,7 +34,7 @@ pipeline {
                                 echo "Performing simple curl test"
                                 sh "curl -LsSf ${container_ip}:8080"
                                 echo "Performing maven verify"
-                                sh "cd gameoflife-acceptance-tests && mvn -Djetty.port=8080 -Dwebdriver.base.url='http://${container_ip}:8080' clean verify"
+                                sh "mvn -f gameoflife-acceptance-tests/pom.xml -Djetty.port=8080 -Dwebdriver.base.url='http://${container_ip}:8080' clean verify"
                             }
                             catch (Exception e) {
                                 throw e
