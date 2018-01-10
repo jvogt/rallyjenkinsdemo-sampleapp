@@ -8,6 +8,13 @@ pipeline {
         PROD_CONTAINER_NAME = "rallyjenkinsdemo_app_prod"
     }
     stages {
+        stage('SonarScan') {
+            steps {
+                echo "Running SonarQube Scan"
+                sh 'mvn clean'
+                sh 'mvn sonar:sonar -Dsonar.host.url=http://sonar:9000 -Dsonar.login=admin -Dsonar.password=admin'
+            }                
+        }
         stage('Build') {
             steps {
                 sh 'mvn clean install -DskipTests'
@@ -25,12 +32,6 @@ pipeline {
                     sh "./stop_acceptance_container.sh ${env.ACCEPTANCE_CONTAINER_NAME}"
                 }
             }
-        }
-        stage('SonarScan') {
-            steps {
-                echo "Running SonarQube Scan"
-                sh 'mvn sonar:sonar -Dsonar.host.url=http://sonar:9000 -Dsonar.login=admin -Dsonar.password=admin'
-            }                
         }
         stage('Deploy') {
             steps {
