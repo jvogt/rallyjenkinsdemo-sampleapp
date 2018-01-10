@@ -17,7 +17,6 @@ pipeline {
         stage('SonarScan') {
             steps {
                 echo "Running SonarQube Scan"
-                sh 'mvn clean'
                 sh 'mvn sonar:sonar -Dsonar.host.url=http://sonar:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }                
         }
