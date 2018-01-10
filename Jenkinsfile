@@ -14,12 +14,21 @@ pipeline {
                 sh "docker build . -t ${env.TARGET_DOCKER_IMAGE}"
             }
         }
+        stage('Unit') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+       
+        /*
         stage('SonarScan') {
             steps {
                 echo "Running SonarQube Scan"
                 sh 'mvn sonar:sonar -Dsonar.host.url=http://sonar:9000 -Dsonar.login=admin -Dsonar.password=admin'
             }                
         }
+        */
+        
         stage('Acceptance') {
             steps {
                 script {
@@ -27,8 +36,10 @@ pipeline {
                     def acceptance_container_ip = sh(returnStdout: true, script: "./get_acceptance_container_ip.sh ${env.ACCEPTANCE_CONTAINER_NAME}").trim()
                     sh "curl -LsSf ${acceptance_container_ip}:8080"
                     
-                    //echo "Performing maven verify"
-                    //sh "mvn -f gameoflife-acceptance-tests/pom.xml -Djetty.port=8080 -Dwebdriver.base.url='http://rallyjenkinsdemo_app_acceptance:8080' clean verify"
+                    /*
+                    echo "Performing maven verify"
+                    sh "mvn -f gameoflife-acceptance-tests/pom.xml -Djetty.port=8080 -Dwebdriver.base.url='http://rallyjenkinsdemo_app_acceptance:8080' clean verify"
+                    */
                     
                     sh "./stop_acceptance_container.sh ${env.ACCEPTANCE_CONTAINER_NAME}"
                 }
