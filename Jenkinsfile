@@ -14,12 +14,12 @@ pipeline {
         }
         stage('Acceptance') {
             steps {
-                sh start_acceptance_container.sh
+                sh './start_acceptance_container.sh'
                 echo "Performing simple curl test"
                 sh "curl -LsSf rallyjenkinsdemo_app_acceptance:8080"
                 //echo "Performing maven verify"
                 //sh "mvn -f gameoflife-acceptance-tests/pom.xml -Djetty.port=8080 -Dwebdriver.base.url='http://rallyjenkinsdemo_app_acceptance:8080' clean verify"
-                //sh stop_acceptance_container.sh
+                sh './stop_acceptance_container.sh'
             }
         }
         stage('SonarScan') {
