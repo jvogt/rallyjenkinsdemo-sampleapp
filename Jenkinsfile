@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     sh "./start_acceptance_container.sh ${env.ACCEPTANCE_CONTAINER_NAME}"
-                    def acceptance_container_ip = sh(returnStdout: true, script: "./get_acceptance_container_ip ${env.ACCEPTANCE_CONTAINER_NAME}").trim()
+                    def acceptance_container_ip = sh(returnStdout: true, script: "./get_acceptance_container_ip.sh ${env.ACCEPTANCE_CONTAINER_NAME}").trim()
                     sh "curl -LsSf ${acceptance_container_ip}:8080"
                     
                     //echo "Performing maven verify"
