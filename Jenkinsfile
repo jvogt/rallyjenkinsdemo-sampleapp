@@ -41,7 +41,7 @@ pipeline {
                     sh "mvn -f gameoflife-acceptance-tests/pom.xml -Djetty.port=8080 -Dwebdriver.base.url='http://rallyjenkinsdemo_app_acceptance:8080' clean verify"
                     */
 
-                    sh "./stop_acceptance_container.sh ${env.ACCEPTANCE_CONTAINER_NAME}"
+                    //sh "./stop_acceptance_container.sh ${env.ACCEPTANCE_CONTAINER_NAME}"
                 }
             }
         }
